@@ -156,7 +156,7 @@ const Header = () => {
                   </>
             ):(
               <div>
-                <Button onClick={togglePopup} className='login-btn' color="inherit" sx={{ display: { xs: 'none', md: 'block' } }} underline="none" >SIGN IN</Button>
+                <Button  as={RouterLink} to="/login" className='login-btn' color="inherit" sx={{ display: { xs: 'none', md: 'block' } }} underline="none" >SIGN IN</Button>
                
               </div>
                 
@@ -164,16 +164,7 @@ const Header = () => {
             }
 
             
-               {isOpen && (
-                <div className='pop-overlay'>
-                  <div className='popup'>
-                    <LoginComponent1 />
-                    <button className='cls-btn' onClick={togglePopup}>
-                      <i class='fa-solid fa-xmark'></i>
-                    </button>
-                  </div>
-                </div>
-              )}
+               
             
           {/* <Button color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>Login</Button> */}
         </Toolbar>

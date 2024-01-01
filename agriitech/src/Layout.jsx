@@ -7,7 +7,8 @@ Route,
 Link
 } from "react-router-dom";
 
-import LoginComponent from './Component/Login/LoginComponent';
+import LoginComponent1 from './Component/Login/LoginComponent1';
+import Register from './Component/Login/Register';
 import Slider from './Slider/Slider'
 // import LoginComponent from './Component/Login/LoginComponent';
 // import Header from './Component/Header/Header';
@@ -29,7 +30,8 @@ const Layout = ()=>{
      <Routes>
          <Route  exact path="/" element={<HomeScreen />} />
          <Route exact path='/layout1' element={<Layout1 />} />
-         <Route exact path="/login" element={<LoginComponent/>} />
+         <Route exact path="/login" element={<LoginComponent1 />} />
+         <Route exact path='/register' element={<Register />} />
          {/* <Route exact path='/login' element={<LoginComponent />} /> */}
 
      </Routes>

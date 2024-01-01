@@ -1,112 +1,74 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import toast from 'react-hot-toast'
-import '../Login/login.css'
-import Register from './Register'
+import React, { useState } from 'react';
+import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
+import {Link as RouterLink} from 'react-router-dom'
+
+const loginStyles = {
+  container: {
+    height: '100vh',
+    
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: `url("https://images.unsplash.com/photo-1574943320219-553eb213f72d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=682&q=80")`
+  },
+  formContainer: {
+    maxWidth: 500,
+    width:400,
+    padding: '16px',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+};
 
 const LoginComponent1 = () => {
-  const navigate = useNavigate()
-  const [email, setemail] = useState('')
-  const [password, setpassword] = useState('')
-  const [isOpen, setIsOpen] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [role , setRole] = useState('user')
-  const handleRadioChange = (event) => {
-    setRole(event.target.value);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = () => {
+    // Handle login logic here
+    console.log('Email:', email);
+    console.log('Password:', password);
   };
 
-  const handleLogin = async e => {
-    e.preventDefault()
-    console.log('user logged in')
-    // setLoading(true)
-    // const response = await axios
-    //   .post('/login', {
-    //     email,
-    //     password
-    //   })
-    //   .catch(err => {
-    //     toast.error(err.response.data.message)
-    //   })
-
-    // if (response) {
-    //   console.log(response.data.user.role)
-    //   if (response.data.user.role) {
-    //     if (response.data.user.role === 'admin') {
-    //       localStorage.setItem('admin', response.data.access_token)
-    //       setLoading(false)
-
-    //       window.location.reload(false)
-    //     } else {
-    //       localStorage.setItem('access_token', response.data.access_token)
-    //       setLoading(false)
-
-    //       window.location.reload(false)
-    //     }
-    //   }
-    // }
-  }
-
-  const togglePopup = () => {
-    setIsOpen(!isOpen)
-  }
-
   return (
-    <>
-      <section class='form-container'>
-        {loading &&
-          toast('Loggin in...', {
-            icon: '🔃'
-          })}
+    <Grid container justifyContent="center" alignItems="center" style={loginStyles.container}>
+      <Paper style={loginStyles.formContainer} elevation={3}>
+        <Typography variant="h5" align="center" gutterBottom>
+          Login
+        </Typography>
+        <form style={loginStyles.form}>
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Email"
+            variant="outlined"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Password"
+            type="password"
+            variant="outlined"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button fullWidth variant="contained" color="primary" onClick={handleLogin}>
+            Login
+          </Button>
+          <Typography >New User ? </Typography>
+          <RouterLink fullWidth  variant="contained" color="primary"to="/register">Register</RouterLink>
+        </form>
+      </Paper>
+    </Grid>
+  );
+};
 
-        <div class='form-container'>
-          <p class='title'>Login</p>
-          <form class='form'>
-            <div class='input-group'>
-              <label for='username'>E-mail</label>
-              <input type='text' value={email} name='username' id='username' onChange={(e) => setemail(e.target.value)}/>
-            </div>
-            <div class='input-group'>
-              <label for='password'>Password</label>
-              <input
-                type='password'
-                name='password'
-                value={password}
-                id='password'
-                placeholder=''
-                onChange={(e) => setpassword(e.target.value)}
-              />
-              <div class='forgot'>
-                <a rel='noopener noreferrer' href='#'>
-                  Forgot Password ?
-                </a>
-              </div>
-            </div>
-         
-            <button onClick={handleLogin} class='sign'>Sign in</button>
-          </form>
-          <br />
-          <br />
-          <br />
-          <p class='signup'>
-            Don't have an account?
-            <a onClick={togglePopup} class=''>
-              Sign up
-            </a>
-          </p>
-        </div>
-        {isOpen && (
-          <div className='pop-overlay'>
-            <div className='popup-r'>
-              <Register />
-              <button  className='cls-btn c-r' onClick={togglePopup}>
-                <i class='fa-solid fa-xmark'></i>
-              </button>
-            </div>
-          </div>
-        )}
-      </section>
-    </>
-  )
-}
-
-export default LoginComponent1
+export default LoginComponent1;

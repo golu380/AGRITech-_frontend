@@ -1,130 +1,97 @@
-import React, { useState } from 'react'
-// import axios from '../axios'
-import { toast } from 'react-hot-toast'
-import './login.css'
+import React, { useState } from 'react';
+import { Container, Box, Grid, Paper,TextField, Button, Typography } from '@mui/material';
+import {Link as RouterLink} from 'react-router-dom';
+
+const loginStyles = {
+  container: {
+    height: '100vh',
+    
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: `url("https://images.unsplash.com/photo-1574943320219-553eb213f72d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=682&q=80")`
+  },
+  formContainer: {
+    maxWidth: 500,
+    width:400,
+    padding: '16px',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+};
 
 const Register = () => {
-  const [name, setname] = useState('')
-  const [email, setemail] = useState('')
-  const [mobile, setmobile] = useState('')
-  const [password, setpassword] = useState('')
-  const [confirm_password, setconfirm_password] = useState('')
-  const [role , setRole] = useState('user')
-  const [loading, setLoading] = useState(false)
-  // const [selectedOption, setSelectedOption] = useState('user');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  // Event handler to update the state when a radio button is selected
-  const handleRadioChange = (event) => {
-    setRole(event.target.value);
+  
+
+  const handleRegister = () => {
+    // Handle registration logic here
+    console.log('Name:', name);
+    console.log('Email:', email);
+    console.log('Password:', password);
+    console.log('Confirm Password:', confirmPassword);
   };
 
-  const handleRegister = async e => {
-    e.preventDefault()
-    alert('registered !');
-    // setLoading(true)
-    // console.log(role)
-
-    // const res = await axios
-    //   .post('/register', {
-    //     name,
-    //     email,
-    //     mobile,
-    //     password,
-    //     confirm_password,
-        
-    //   })
-    //   .then(() => {
-    //     toast.success('Succesfull Register')
-
-    //     setLoading(false)
-    //     window.location.reload(false)
-    //   })
-    //   .catch(err => {
-    //     console.log('err react')
-
-    //     toast.error(err.response.data.message)
-    //     setLoading(false)
-    //   })
-  }
   return (
-    <>
-      {/* <section class='form-container r-f'>
-        
-      </section> */}
-
-      {loading &&
-        toast('Saving You in Database...', {
-          icon: '🔃'
-        })}
-      <div class='form-container'>
-        <p class='title'>Register</p>
-        <form class='form'>
-          <div class='input-group'>
-            <label for='username'>Name:</label>
-            <input
-              type='text'
-              value={name}
-              name='username'
-              id='username'
-              onChange={e => setname(e.target.value)}
-            />
-          </div>
-          <div class='input-group'>
-            <label for='username'>E-mail</label>
-            <input
-              type='email'
-              value={email}
-              name='username'
-              id='username'
-              onChange={e => setemail(e.target.value)}
-            />
-          </div>
-          <div class='input-group'>
-            <label for='username'>Mobile:</label>
-            <input
-              type='text'
-              value={mobile}
-              name='username'
-              id='username'
-              onChange={e => setmobile(e.target.value)}
-            />
-          </div>
-
-          <div class='input-group'>
-            <label for='password'>Password</label>
-            <input
-              type='password'
-              name='password'
-              value={password}
-              id='password'
-              placeholder=''
-              onChange={e => setpassword(e.target.value)}
-            />
-          </div>
-          <div class='input-group'>
-            <label for='password'>Confirm Password</label>
-            <input
-              type='password'
-              name='password'
-              value={confirm_password}
-              id='password'
-              placeholder=''
-              onChange={e => setconfirm_password(e.target.value)}
-            />
-          
-          </div>
-          
-          <br /> <br />
-          <button onClick={handleRegister} class='sign'>
-            Sign in
-          </button>
+    <Grid container justifyContent="center" alignItems="center" style={loginStyles.container}>
+      <Paper style={loginStyles.formContainer} elevation={3}>
+        <Typography variant="h5" align="center" gutterBottom>
+          Login
+        </Typography>
+        <form style={loginStyles.form}>
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Name"
+            variant="outlined"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Email"
+            variant="outlined"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Password"
+            type="password"
+            variant="outlined"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Confirm Password"
+            type="password"
+            variant="outlined"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <Button fullWidth variant="contained" color="primary" onClick={handleRegister}>
+            Register
+          </Button>
+          {/* <Typography >New User ? </Typography>
+          <RouterLink fullWidth  variant="contained" color="primary"to="/register">Register</RouterLink> */}
         </form>
-        <br />
-        <br />
-        <br />
-      </div>
-    </>
-  )
-}
+      </Paper>
+    </Grid>
+  );
+};
 
-export default Register
+export default Register;
