@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Box, Grid, Paper,TextField, Button, Typography } from '@mui/material';
 import {Link as RouterLink} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import { register } from '../../actions/userActions';
+import Message from '../Message/Message';
+import Loader from '../Loader/Loader';
+
+
+
 
 const loginStyles = {
   container: {
@@ -31,20 +38,48 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [mobile,setMobile] = useState('');
+  const [message,setMessage] = useState('');
+
+  const dispatch = useDispatch()
+
+  const userRegister = useSelector(state => state.userRegister)
+  const {loading, userInfo, error} = userRegister
+  // const redirect = location.search? location.search.split('=')[1]:'/'
+  // useEffect(() =>{
+  //   if(userInfo){
+  //     history.push(redirect)
+  //   }
+  // },[userInfo,history,redirect])
 
   
 
-  const handleRegister = () => {
+  const handleRegister = (e) => {
     // Handle registration logic here
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Confirm Password:', confirmPassword);
+   e.preventDefault()
+   if(password !== confirmPassword){
+    setMessage("passwords are not matched!")
+   }else{
+    dispatch(register(name,email,password,mobile));
+    console.log(userInfo,loading,error.message)
+   }
   };
 
   return (
     <Grid container justifyContent="center" alignItems="center" style={loginStyles.container}>
-      <Paper style={loginStyles.formContainer} elevation={3}>
+      <Paper style={loginStyles.formContainer} elevation={3}>{
+        loading && <Loader />
+      }
+      {
+        error && <Typography variant="danger" align="center" gutterBottom>
+        {error}
+      </Typography>
+      }
+      {
+        message && <Typography variant="h5" align="center" gutterBottom>
+        {message}
+      </Typography>
+      }
         <Typography variant="h5" align="center" gutterBottom>
           Login
         </Typography>
@@ -64,6 +99,14 @@ const Register = () => {
             variant="outlined"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Mobile number"
+            variant="outlined"
+            value={mobile}
+            onChange={(e) => setMobile(e.target.value)}
           />
           <TextField
             fullWidth

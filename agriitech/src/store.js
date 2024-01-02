@@ -2,11 +2,13 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { thunk} from 'redux-thunk'
 
 import {
-    userLoginReducer
+    userLoginReducer,
+    userRegisterReducer,
 } from './reducers/userReducer'
 
 const reducer = combineReducers({
-    userLogin: userLoginReducer
+    userLogin: userLoginReducer,
+    userRegister: userRegisterReducer
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

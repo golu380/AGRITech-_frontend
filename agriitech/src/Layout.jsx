@@ -31,7 +31,7 @@ const Layout = ()=>{
          <Route  exact path="/" element={<HomeScreen />} />
          <Route exact path='/layout1' element={<Layout1 />} />
          <Route exact path="/login" element={<LoginComponent1 />} />
-         <Route exact path='/register' element={<Register />} />
+         <Route exact path='/register' element={<Register  />} />
          {/* <Route exact path='/login' element={<LoginComponent />} /> */}
 
      </Routes>
