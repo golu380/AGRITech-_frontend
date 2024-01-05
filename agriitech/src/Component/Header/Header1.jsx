@@ -22,7 +22,12 @@ const Header = () => {
     //     name:"Amit Kumar Dubey",
     //     isAdmin : true
     // }
-    const userInfo = null
+    const user = localStorage.getItem('userInfo')
+    const userInfo= JSON.parse(user).user;
+    console.log(userInfo);
+    console.log(user);
+    console.log(user[0]);
+    // const userInfo = null
     const [isOpen, setIsOpen] = useState(false)
     const togglePopup = () => {
       setIsOpen(!isOpen)

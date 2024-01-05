@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
-import {Link as RouterLink} from 'react-router-dom'
+import {Link as RouterLink, useHistory} from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import {login} from '../../actions/userActions'
 
 const loginStyles = {
   container: {
@@ -30,10 +32,17 @@ const LoginComponent1 = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
+  const dispatch = useDispatch();
+
+
+  const userLogin = useSelector(state => state.userLogin)
+  const {loading, userInfo, error} = userLogin
+
+  const handleLogin = (e) => {
     // Handle login logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
+ 
+    dispatch(login(email,password))
+  
   };
 
   return (

@@ -32,7 +32,7 @@ const LoginComponent = ({ location, history }) => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        // dispatch(login(email, password))
+        dispatch(login(email, password))
     }
 
     return (

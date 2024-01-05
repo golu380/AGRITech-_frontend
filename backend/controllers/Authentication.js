@@ -69,6 +69,7 @@ const Authentication = {
         })
 
         const {email,password} = req.body
+        console.log(req.body)
         const {error} = loginSchema.validate(req.body)
         if(error){
             return next(error);
