@@ -1,0 +1,64 @@
+.mainclass{
+    height: 80vh;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("https://images.unsplash.com/photo-1574943320219-553eb213f72d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=682&q=80");
+
+}
+.farmerContainer {
+    /* margin-top: 130px !important; */
+    /* margin-bottom: 30px !important; */
+    
+  
+}
+
+.farmer-title {
+    text-align: center;
+    font-size: 22px;
+}
+
+.card-titile {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight:bold;
+}
+
+.title {
+    text-align: center; 
+    font-weight: bold; 
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.btn-explore {
+    margin-bottom: 10px;
+    text-align: center;
+    align-items: center;
+    margin-left: 25% !important;
+  }
+
+  .cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.5);
+
+  }
+  .btn-explore btn-md m-2{
+    font-weight: bold;
+  }
+
+  @media screen and (max-width: 600px) {
+    .main{
+        height: auto !important;
+    }
+   .cards{
+    display: flex !important; ;
+    flex-direction: column !important;
+    justify-content: center;
+    align-items: center;
+   
+   }
+  }

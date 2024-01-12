@@ -29,7 +29,7 @@ const Authentication = {
             if(exists){
                 
                 return next(
-                    CustomerErrorHandler.aleradyExists('This email already exists')
+                    CustomerErrorHandler.aleradyExists('This email already exists').message
                 )
             }
         }catch(err){
@@ -103,6 +103,11 @@ const Authentication = {
         }catch(err){
         return next(err);
         }
+    },
+    async getUserProfile(req,res,next){
+       
+
+
     }
 
     

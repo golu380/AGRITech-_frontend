@@ -10,6 +10,7 @@ Link
 import LoginComponent1 from './Component/Login/LoginComponent1';
 import Register from './Component/Login/Register';
 import Slider from './Slider/Slider'
+import FarmerScreen from './Screens/FarmerScreen/FarmerScreen';
 // import LoginComponent from './Component/Login/LoginComponent';
 // import Header from './Component/Header/Header';
 import Header from './Component/Header/Header1';
@@ -32,6 +33,7 @@ const Layout = ()=>{
          <Route exact path='/layout1' element={<Layout1 />} />
          <Route exact path="/login" element={<LoginComponent1 />} />
          <Route exact path='/register' element={<Register  />} />
+         <Route exact path='/farmer' element={<FarmerScreen />} />
          {/* <Route exact path='/login' element={<LoginComponent />} /> */}
 
      </Routes>

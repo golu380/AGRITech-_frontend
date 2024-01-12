@@ -6,7 +6,7 @@ import Image from 'react-bootstrap/Image';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Router, Link as RouterLink } from 'react-router-dom';
+import { Router, Link,useNavigate } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Divider from '@mui/material/Divider';
 import LoginComponent1 from '../Login/LoginComponent1';
@@ -22,12 +22,18 @@ const Header = () => {
     //     name:"Amit Kumar Dubey",
     //     isAdmin : true
     // }
-    const user = localStorage.getItem('userInfo')
-    const userInfo= JSON.parse(user).user;
-    console.log(userInfo);
-    console.log(user);
-    console.log(user[0]);
-    // const userInfo = null
+    // const user = localStorage.getItem('userInfo')
+    // // const userInfo= JSON.parse(user).user;
+    // console.log(userInfo);
+    // console.log(user);
+    // console.log(user[0]);
+    const userInfo = null
+    const navigate = useNavigate('');
+
+    const handleFarmer = (e) =>{
+      e.preventDefault();
+      navigate('/farmer');
+    }
     const [isOpen, setIsOpen] = useState(false)
     const togglePopup = () => {
       setIsOpen(!isOpen)
@@ -71,8 +77,8 @@ const Header = () => {
 
           {/* Navigation links (adjust as needed) */}
           <Button color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>Home</Button>
-          <Button color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>FARMER</Button>
-          <Button color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>CONSUMER</Button>
+          <Button component = {Link} to="/farmer" color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>FARMER</Button>
+          <Button  color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>CONSUMER</Button>
           <Button color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>SUPPLIER</Button>
           <Button color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>Cart</Button>
           <Button color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>
@@ -139,10 +145,10 @@ const Header = () => {
                      {
                     userInfo && userInfo.isAdmin && (
                       <>
-                         <MenuItem as={RouterLink} to="#/admin/dashboard">DASHBOARD</MenuItem>
-                        <MenuItem as={RouterLink} to="/admin/userlist">USERS</MenuItem>
-                        <MenuItem as={RouterLink} to="/admin/productlist">PRODUCTS</MenuItem>
-                        <MenuItem as={RouterLink} to="/admin/orderlist">ORDERS</MenuItem>
+                         <MenuItem component={Link} to="#/admin/dashboard">DASHBOARD</MenuItem>
+                        <MenuItem component={Link} to="/admin/userlist">USERS</MenuItem>
+                        <MenuItem component={Link} to="/admin/productlist">PRODUCTS</MenuItem>
+                        <MenuItem component={Link} to="/admin/orderlist">ORDERS</MenuItem>
                       </>
                      
                     )
@@ -161,7 +167,7 @@ const Header = () => {
                   </>
             ):(
               <div>
-                <Button  as={RouterLink} to="/login" className='login-btn' color="inherit" sx={{ display: { xs: 'none', md: 'block' } }} underline="none" >SIGN IN</Button>
+                <Button  component={Link} to="/login" className='login-btn' color="inherit" sx={{ display: { xs: 'none', md: 'block' } }} underline="none" >SIGN IN</Button>
                
               </div>
                 
