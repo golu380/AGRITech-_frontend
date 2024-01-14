@@ -6,7 +6,7 @@ import Image from 'react-bootstrap/Image';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Router, Link,useNavigate } from 'react-router-dom';
+import { Router, Link,useNavigate,useLocation } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Divider from '@mui/material/Divider';
 import LoginComponent1 from '../Login/LoginComponent1';
@@ -24,10 +24,17 @@ const Header = () => {
     //     name:"Amit Kumar Dubey",
     //     isAdmin : true
     // }
- 
-const userInfo = null;
-    const navigate = useNavigate('');
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+  const userLogin = useSelector(state => state.userLogin)
+  console.log(userLogin);
+ const {userInfo} = userLogin;
+ console.log(userInfo);
 
+
+ 
+
+    
     const handleFarmer = (e) =>{
       e.preventDefault();
       navigate('/farmer');
@@ -38,7 +45,8 @@ const userInfo = null;
     }
 
     const logoutHandler =()=>{
-      dispatchEvent(logout());
+      console.log("logged out")
+      dispatch(logout());
     }
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -78,7 +86,7 @@ const userInfo = null;
           </Typography>
 
           {/* Navigation links (adjust as needed) */}
-          <Button color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>Home</Button>
+          <Button component={Link} to="/"color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>Home</Button>
           <Button component = {Link} to="/farmer" color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>FARMER</Button>
           <Button  color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>CONSUMER</Button>
           <Button component={Link} to='/supplier' color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>SUPPLIER</Button>
@@ -105,7 +113,7 @@ const userInfo = null;
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                       >
-                        <Avatar sx={{ width: 32, height: 32 }}>{userInfo.name[0]}</Avatar>
+                        <Avatar sx={{ width: 32, height: 32 }}>{userInfo.data.user.name[0].toUpperCase()}</Avatar>
                       </IconButton>
                     </Tooltip>
                   </Box>
@@ -156,12 +164,12 @@ const userInfo = null;
                     )
                 }
                     <MenuItem onClick={handleClose}>
-                      <Avatar /> {userInfo.name.toUpperCase()}
+                      <Avatar /> {userInfo.data.user.name.toUpperCase()}
                     </MenuItem>
                    <Divider />
                     <MenuItem onClick={handleClose}>
-                      <ListItemIcon component={Button} onClick={logoutHandler}>
-                        <Logout fontSize="small" />
+                      <ListItemIcon >
+                        <Logout fontSize="small" onClick={logoutHandler} />
                       </ListItemIcon>
                       Logout
                     </MenuItem>

@@ -5,10 +5,10 @@ const mongoose = require('mongoose');
 const routes = require('./routes/routes.js')
 const cors = require('cors');
 const {DB_URI,PORT} = require('./config/config.js')
-const errorHandler = require('./middleware/')
+const errorHandler = require('./middleware/errorHandler.js')
 const app = express();
 console.log(DB_URI )
-c
+
 
 mongoose.connect(DB_URI)
 
@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(cors())
 app.use(routes)
-
+app.use(errorHandler)
 app.listen(PORT, ()=>{
     console.log(`Server is running on port ${PORT}`);
 })

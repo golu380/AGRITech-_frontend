@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
-import {Link as RouterLink, useHistory} from 'react-router-dom'
+import {Link as RouterLink, useHistory,useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import {login} from '../../actions/userActions'
+import Loader from '../Loader/Loader';
 
 const loginStyles = {
   container: {
@@ -29,6 +30,7 @@ const loginStyles = {
 };
 
 const LoginComponent1 = () => {
+  const navigate = useNavigate('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -36,29 +38,31 @@ const LoginComponent1 = () => {
 
 
   const userLogin = useSelector(state => state.userLogin)
+  const {loading, userInfo, error} = userLogin;
+  console.log(userLogin);
   
-  // const redirect = location.search?location.search.split('=')[1]:'/'
-
-  // console.log(userInfo,loading,error);
-
-  // useEffect(()=>{
-  //   if(userInfo){
-  //     history.pushState(redirect)
-  //   }
-  // },[userInfo,history,redirect])
+  
 
   const handleLogin = (e) => {
     // Handle login logic here
     e.preventDefault();
- console.log(email,password)
+ 
     dispatch(login(email,password))
+    if(userInfo){
+      navigate('/');
+    }
+   
 
   
   };
 
   return (
     <Grid container justifyContent="center" alignItems="center" style={loginStyles.container}>
-      <Paper style={loginStyles.formContainer} elevation={3}>
+      <Paper style={loginStyles.formContainer} elevation={3}>{
+        error && <Typography variant = "h5" align="center">{error}</Typography>
+
+      }
+      {loading && <Loader />}
         <Typography variant="h5" align="center" gutterBottom>
           Login
         </Typography>

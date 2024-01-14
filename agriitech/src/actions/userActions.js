@@ -10,6 +10,11 @@ import {
     USER_REGISTER_FAIL,
     USER_REGISTER_REQUEST,
     USER_REGISTER_SUCCESS,
+    USER_DETAILS_FAIL,
+    USER_DETAILS_REQUEST,
+    USER_DETAILS_RESET,
+    USER_DETAILS_SUCCESS,
+    
 } from '../constants/userConstants';
 
 export const login = (email,password) =>
@@ -33,7 +38,7 @@ export const login = (email,password) =>
         { email, password },
         config
     )
-    console.log(data.status)
+    console.log(data)
     dispatch({
         type: USER_LOGIN_SUCCESS,
         payload : data
@@ -47,12 +52,11 @@ export const login = (email,password) =>
     
    
     }catch(error){
+        console.log(error);
        dispatch({
         type:USER_LOGIN_FAIL,
-        payload:
-            error.response && error.response.data.message
-            ?error.response.data.message:
-            error.message
+        payload: error.response.data.message
+           
        })
     }
 
@@ -140,7 +144,7 @@ export const register = (name,email,password,mobile) => async (dispatch)=>{
 export const logout = () => (dispatch) => {
     localStorage.removeItem('userInfo')
     dispatch({ type: USER_LOGOUT })
-    // dispatch({ type: USER_DETAILS_RESET })
+    dispatch({ type: USER_DETAILS_RESET })
     // dispatch({ type: ORDER_LIST_MY_RESET })
     // dispatch({ type: USER_LIST_RESET })
 }

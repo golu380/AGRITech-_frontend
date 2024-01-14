@@ -4,11 +4,13 @@ import { thunk} from 'redux-thunk'
 import {
     userLoginReducer,
     userRegisterReducer,
+    userDetailsReducer,
 } from './reducers/userReducer'
 
 const reducer = combineReducers({
     userLogin: userLoginReducer,
-    userRegister: userRegisterReducer
+    userRegister: userRegisterReducer,
+    userDetails: userDetailsReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

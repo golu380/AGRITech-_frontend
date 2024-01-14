@@ -85,7 +85,7 @@ const Authentication = {
             })
             if(!user){
                 
-                res.status(404).json({error:"User does not exist"})
+               
                 // next();
                 return next(CustomerErrorHandler.notExists("User Doesn't Exists, Please Sign Up"))
             }
@@ -94,7 +94,7 @@ const Authentication = {
             const match = await bcrypt.compare(password,user.password)
             if(!match){
                 
-                res.status(411).send({error:"Invalid user name password"})
+                
                 return next(CustomerErrorHandler.wrongPassword("Invalid password"))
             }
             const access_token = JwtService.sign({
