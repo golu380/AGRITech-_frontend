@@ -28,12 +28,12 @@ export const login = (email,password) =>
                 },
             }
 
-    const { data } = await axios.post(
+    const  data  = await axios.post(
         'http://127.0.0.1:8080/login',
         { email, password },
         config
     )
-    console.log(data)
+    console.log(data.status)
     dispatch({
         type: USER_LOGIN_SUCCESS,
         payload : data

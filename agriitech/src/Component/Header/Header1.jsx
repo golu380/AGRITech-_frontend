@@ -17,17 +17,15 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 // import LoginComponent1 from '../Login/LoginComponent1';
+import {logout} from '../../actions/userActions';
+import { useDispatch, useSelector } from 'react-redux';
 const Header = () => {
     // const userInfo= {
     //     name:"Amit Kumar Dubey",
     //     isAdmin : true
     // }
-    // const user = localStorage.getItem('userInfo')
-    // // const userInfo= JSON.parse(user).user;
-    // console.log(userInfo);
-    // console.log(user);
-    // console.log(user[0]);
-    const userInfo = null
+ 
+const userInfo = null;
     const navigate = useNavigate('');
 
     const handleFarmer = (e) =>{
@@ -37,6 +35,10 @@ const Header = () => {
     const [isOpen, setIsOpen] = useState(false)
     const togglePopup = () => {
       setIsOpen(!isOpen)
+    }
+
+    const logoutHandler =()=>{
+      dispatchEvent(logout());
     }
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -79,7 +81,7 @@ const Header = () => {
           <Button color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>Home</Button>
           <Button component = {Link} to="/farmer" color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>FARMER</Button>
           <Button  color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>CONSUMER</Button>
-          <Button color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>SUPPLIER</Button>
+          <Button component={Link} to='/supplier' color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>SUPPLIER</Button>
           <Button color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>Cart</Button>
           <Button color="inherit" sx={{ display: { xs: 'none', md: 'block' } }}>
             <Badge badgeContent={3} color="error">
@@ -158,7 +160,7 @@ const Header = () => {
                     </MenuItem>
                    <Divider />
                     <MenuItem onClick={handleClose}>
-                      <ListItemIcon>
+                      <ListItemIcon component={Button} onClick={logoutHandler}>
                         <Logout fontSize="small" />
                       </ListItemIcon>
                       Logout

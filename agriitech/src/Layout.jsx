@@ -15,6 +15,7 @@ import FarmerScreen from './Screens/FarmerScreen/FarmerScreen';
 // import Header from './Component/Header/Header';
 import Header from './Component/Header/Header1';
 import Footer from './Component/Footer/Footer';
+import SupplierScreen from './Screens/Supplier/SupplierScreen';
 // import Footer from './Component/Footer/Footer1';
 
 import HomeScreen from './Screens/Home/HomeScreen';
@@ -34,6 +35,7 @@ const Layout = ()=>{
          <Route exact path="/login" element={<LoginComponent1 />} />
          <Route exact path='/register' element={<Register  />} />
          <Route exact path='/farmer' element={<FarmerScreen />} />
+         <Route exact path ='/supplier' element={<SupplierScreen />} />
          {/* <Route exact path='/login' element={<LoginComponent />} /> */}
 
      </Routes>

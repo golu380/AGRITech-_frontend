@@ -28,10 +28,13 @@ const Authentication = {
             const exists = await User.exists({email: req.body.email})
             if(exists){
                 
+             
+                res.status(410).json({error:"This email already exists"})
                 return next(
                     CustomerErrorHandler.aleradyExists('This email already exists').message
                 )
             }
+            
         }catch(err){
             return next(err);
         }
@@ -81,12 +84,17 @@ const Authentication = {
                 email
             })
             if(!user){
+                
+                res.status(404).json({error:"User does not exist"})
+                // next();
                 return next(CustomerErrorHandler.notExists("User Doesn't Exists, Please Sign Up"))
             }
             //Compare password
 
             const match = await bcrypt.compare(password,user.password)
             if(!match){
+                
+                res.status(411).send({error:"Invalid user name password"})
                 return next(CustomerErrorHandler.wrongPassword("Invalid password"))
             }
             const access_token = JwtService.sign({

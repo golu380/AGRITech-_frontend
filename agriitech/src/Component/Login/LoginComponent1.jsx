@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
 import {Link as RouterLink, useHistory} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,12 +36,23 @@ const LoginComponent1 = () => {
 
 
   const userLogin = useSelector(state => state.userLogin)
-  const {loading, userInfo, error} = userLogin
+  
+  // const redirect = location.search?location.search.split('=')[1]:'/'
+
+  // console.log(userInfo,loading,error);
+
+  // useEffect(()=>{
+  //   if(userInfo){
+  //     history.pushState(redirect)
+  //   }
+  // },[userInfo,history,redirect])
 
   const handleLogin = (e) => {
     // Handle login logic here
- 
+    e.preventDefault();
+ console.log(email,password)
     dispatch(login(email,password))
+
   
   };
 
