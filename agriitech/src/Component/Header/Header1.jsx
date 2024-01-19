@@ -153,7 +153,7 @@ const Header = () => {
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                   >
                      {
-                    userInfo && userInfo.isAdmin && (
+                    userInfo && userInfo.data.user.isAdmin && (
                       <>
                          <MenuItem component={Link} to="#/admin/dashboard">DASHBOARD</MenuItem>
                         <MenuItem component={Link} to="/admin/userlist">USERS</MenuItem>
@@ -168,8 +168,8 @@ const Header = () => {
                     </MenuItem>
                    <Divider />
                     <MenuItem onClick={handleClose}>
-                      <ListItemIcon >
-                        <Logout fontSize="small" onClick={logoutHandler} />
+                      <ListItemIcon onClick={logoutHandler} >
+                        <Logout fontSize="small"  />
                       </ListItemIcon>
                       Logout
                     </MenuItem>
