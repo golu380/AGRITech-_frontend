@@ -1,5 +1,5 @@
 import React ,{useState,useEffect}from 'react';
-
+import axios from 'axios';
 // import {Form,Button, Row,Col,Container} from 'react-bootstrap';
 
 import Loader from '../Loader/Loader';
@@ -12,7 +12,11 @@ Container,
 Select,
 MenuItem,
 InputLabel,
-Input} from '@mui/material';
+Input,
+} from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { createSupplierProduct } from '../../actions/supplierProduct';
 
 const AddSupplierProduct = ()=>{
 const [name, setName] = useState('');
@@ -25,27 +29,93 @@ const [storage,setStorage] = useState('');
 const [phonenumber,setPhonenumber] = useState('');
 const  [description,setDescription] = useState('');
 const [uploading, setUploading] = useState('');
+const [imageView, setImageView] = useState('');
+const [id,setId] = useState('');
 
+const navigate = useNavigate('');
+
+const dispatch = useDispatch();
+const productCreate = useSelector(state=> state.productCreate);
+const {loading, success, error} = productCreate
+
+const userLogin = useSelector(state=>state.userLogin)
+const {userInfo} = userLogin;
+
+useEffect(() =>{
+  if(!userInfo){
+    navigate('/login');
+  }
+},[userInfo,navigate,dispatch]);
+
+console.log(userInfo);
 const containerStyle = {
     marginTop : '20px',
 }
 const paperStyle={
     padding: '20px',
 }
-const [selectedOption, setSelectedOption] = useState('');
-
+// const [selectedOption, setSelectedOption] = useState('');
+const SubmitHandler = (e) =>{
+  e.preventDefault();
+  console.log(image)
+  console.log(id);
+  dispatch(createSupplierProduct({
+    name,
+    email,
+    address,
+    cropSelection,
+    storage,
+    image,
+    imgUrl,
+    phonenumber,
+    description,
+    id
+  }))
+  setName('')
+  setEmail('')
+  setImage('')
+  setAddress('')
+  setCropSelection('')
+  setPhonenumber('')
+  setStorage('')
+  setImgeUrl('')
+}
   const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
+    setCropSelection(event.target.value);
   };
-  const handleImageChange = (e) => {
+  const uploadFileHandler = async (e) => {
     e.preventDefault();
-    setImage(e.target.value);
+    setId(userInfo.data.user._id)
+    const file = e.target.files[0]
+    console.log(file);
+    console.log(e.target.value);
+    setImageView(e.target.value);
+    const formData = new FormData();
+    formData.append('image',file)
+    setUploading(true);
+    try{
+      const config = {
+        headers:{
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+      const {data} = await axios.post('http://localhost:8080/api/upload',formData,config);
+      console.log(data);
+
+      setImage(data);
+      
+      setUploading(false);
+
+    }catch(error){
+      console.log(error)
+      setUploading(false);
+    }
   }
 
     return (
         <Container style={containerStyle} maxWidth="md">
       <Paper style={paperStyle} elevation={3}>
-        <form >
+        <form  onSubmit={SubmitHandler}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -82,7 +152,7 @@ const [selectedOption, setSelectedOption] = useState('');
               
               <Select
                 label="select you crop" 
-                value={selectedOption}
+                value={cropSelection}
                 onChange={handleOptionChange}
                 fullWidth
                 variant="outlined"
@@ -113,10 +183,10 @@ const [selectedOption, setSelectedOption] = useState('');
                 type="file"
                 id="image-upload"
                 accept="image/*"
-                onChange={handleImageChange}
+                onChange={uploadFileHandler}
                 fullWidth
                 required
-                value={image}
+                value={imageView}
             
               />
               {uploading && <Loader />}
@@ -126,6 +196,10 @@ const [selectedOption, setSelectedOption] = useState('');
                 label="Phone Number"
                 variant="outlined"
                 fullWidth
+                required
+                value = {phonenumber}
+                onChange={(e)=>setPhonenumber(e.target.value)}
+              
                 />
             </Grid>
             <Grid item xs ={12} sm ={6}>
@@ -133,7 +207,13 @@ const [selectedOption, setSelectedOption] = useState('');
                 label="Product Size"
                 // value ={}
                 fullWidth
-                variant="outlined" />
+                variant="outlined"
+                required
+                value={storage}
+                onChange={(e)=>setStorage(e.target.value)}
+
+                 />
+                
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -142,11 +222,14 @@ const [selectedOption, setSelectedOption] = useState('');
                 rows={4}
                 fullWidth
                 variant="outlined"
+                required
+                value={description}
+                onChange={(e)=>setDescription(e.target.value)}
               />
             </Grid>
             
             <Grid item xs={12}>
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" type="submit">
                 Submit
               </Button>
             </Grid>

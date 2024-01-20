@@ -6,11 +6,11 @@ import {
 
 export const productCreateReducer = (state={},action) =>{
     switch(action.type){
-        case 'SUPPLIER_PRODUCT_CREATE_REQUEST':
+        case SUPPLIER_PRODUCT_CREATE_REQUEST:
             return {loading :true}
-        case 'SUPPLIER_PRODUCT_CREATE_SUCCESS':
+        case SUPPLIER_PRODUCT_CREATE_SUCCESS:
             return {loading:false,success:true,product:action.payload}
-        case 'SUPPLIER_PRODUCT_CREATE_FAIL':
+        case SUPPLIER_PRODUCT_CREATE_FAIL:
             return {}
         default:
             return state

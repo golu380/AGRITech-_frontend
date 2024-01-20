@@ -16,13 +16,16 @@ export const createSupplierProduct = ({
     storage,
     image,
     phonenumber,
-    description
+    description,
+    imgUrl,
+    id
 }) => async (dispatch,getState) =>{
     try{
         dispatch({
             type: SUPPLIER_PRODUCT_CREATE_REQUEST,
         })
         const {userLogin :{userInfo}} = getState();
+            console.log(userInfo);
         const config = {
             headers:{
                 'Content-Type': 'application/json',
@@ -31,7 +34,7 @@ export const createSupplierProduct = ({
         }
 
         const {data} = await axios.post(
-            '/api/supplier',
+            'http://localhost:8080/api/supplier',
             {
                 name,
                 email,
@@ -40,7 +43,10 @@ export const createSupplierProduct = ({
                 storage,
                 image,
                 phonenumber,
-                description  
+                description ,
+                imgUrl ,
+                id
+                
             },
             config
         )

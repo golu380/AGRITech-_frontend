@@ -15,10 +15,13 @@ const SupplierController = {
         storage,
         image,
         phonenumber,
-        description
+        description,
+        imgUrl,
+        id
+        
 
        } = req.body;
-       console.log(name,email,address,cropSelection,image,phonenumber,)
+       console.log(name,email,address,cropSelection,image,phonenumber,imgUrl)
 
      if(name & address == '')  {
         res.status(400)
@@ -37,8 +40,9 @@ const SupplierController = {
          });
          const latAndLong = await getCordinates;
          console.log(latAndLong);
+       
          const supplier = new Supplier({
-            user:req.user_id,
+            user:id,
             name,
             email,
             address,
@@ -48,8 +52,10 @@ const SupplierController = {
             latitude:latAndLong.latitude,
             image,
             phonenumber,
-            description
+            description,
+            imgUrl
          })
+         console.log(supplier)
          try{
             const createdSupplierProduct =  await supplier.save();
             res.status(201).json(createdSupplierProduct);

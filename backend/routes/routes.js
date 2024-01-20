@@ -13,6 +13,8 @@ router.post('/login',Authentication.login);
 
 
 router.post('/api/supplier',SupplierController.createSupplierController)
+const NodeGeocoder = require('node-geocoder');
+
 
 
 const storage = multer.diskStorage({
@@ -44,7 +46,7 @@ const storage = multer.diskStorage({
   });
   
   // Define the file upload endpoint
-  router.post('/api/upload', upload.single('file'), (req, res) => {
+  router.post('/api/upload', upload.single('image'), (req, res) => {
     console.log(req.file);
     try {
       if (!req.file) {
@@ -58,6 +60,7 @@ const storage = multer.diskStorage({
       res.status(500).json({ error: error.message });
     }
   });
+
 
 // const storage = multer.memoryStorage(); // You can configure storage as needed
 // const upload = multer({ storage: storage });

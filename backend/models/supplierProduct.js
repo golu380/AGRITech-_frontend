@@ -47,7 +47,7 @@ const supplierSchema = mongoose.Schema({
         required:true
     },
     reviews:[farmerProductReviewSchema],
-    logitude:{
+    longitude:{
         type:Number,
         required:false
     },
@@ -56,8 +56,15 @@ const supplierSchema = mongoose.Schema({
         required:false
     },
     image:{
+        path:{
+            type:String,
+            required:true
+        }
+       
+    },
+    imgUrl:{
         type:String,
-        required:true
+        required:false
     },
     isReviwed:{
         type:Boolean,
