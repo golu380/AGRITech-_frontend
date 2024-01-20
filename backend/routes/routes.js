@@ -44,8 +44,8 @@ const storage = multer.diskStorage({
   });
   
   // Define the file upload endpoint
-  router.post('/upload', upload.single('image'), (req, res) => {
-    console.log(req);
+  router.post('/api/upload', upload.single('file'), (req, res) => {
+    console.log(req.file);
     try {
       if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
@@ -59,7 +59,13 @@ const storage = multer.diskStorage({
     }
   });
 
+// const storage = multer.memoryStorage(); // You can configure storage as needed
+// const upload = multer({ storage: storage });
 
-
+// router.post('/api/upload', upload.single('file'), (req, res) => {
+//     // Access the uploaded file through req.file
+//     console.log(req.file);
+//     res.send('File uploaded!');
+//   });
 
 module.exports = router;

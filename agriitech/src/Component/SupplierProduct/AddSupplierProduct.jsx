@@ -19,6 +19,7 @@ const [name, setName] = useState('');
 const [email,setEmail] = useState('');
 const [image,setImage] = useState('');
 const [address,setAddress] = useState('');
+const [imgUrl, setImgeUrl] = useState('');
 const [cropSelection,setCropSelection] = useState('');
 const [storage,setStorage] = useState('');
 const [phonenumber,setPhonenumber] = useState('');
@@ -38,18 +39,22 @@ const [selectedOption, setSelectedOption] = useState('');
   };
   const handleImageChange = (e) => {
     e.preventDefault();
+    setImage(e.target.value);
   }
 
     return (
         <Container style={containerStyle} maxWidth="md">
       <Paper style={paperStyle} elevation={3}>
-        <form>
+        <form >
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <TextField
                 label="Name"
                 fullWidth
+                required
+                value = {name}
                 variant="outlined"
+                onChange={(e)=>setName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -57,6 +62,10 @@ const [selectedOption, setSelectedOption] = useState('');
                 label="Email"
                 fullWidth
                 variant="outlined"
+                required
+                value={email}
+                onChange={(e)=>setEmail(e.target.value)}
+                
               />
             </Grid>
             <Grid item xs={12} sm = {6}>
@@ -64,6 +73,9 @@ const [selectedOption, setSelectedOption] = useState('');
                 label="Your Adress"
                 fullWidth
                 variant="outlined"
+                required
+                value = {address}
+                onChange = {(e)=>setAddress(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6} >
@@ -74,6 +86,9 @@ const [selectedOption, setSelectedOption] = useState('');
                 onChange={handleOptionChange}
                 fullWidth
                 variant="outlined"
+                required
+                
+          
                 
               >
                 <MenuItem value="">Select Your Crop</MenuItem>
@@ -86,7 +101,9 @@ const [selectedOption, setSelectedOption] = useState('');
                 <TextField
                 label="Image URL"
                 // value ={}
-                required
+                value ={imgUrl}
+                onChange={(e)=>setImgeUrl(e.target.value)}
+                
                 fullWidth
                 variant="outlined" />
             </Grid>
@@ -98,6 +115,9 @@ const [selectedOption, setSelectedOption] = useState('');
                 accept="image/*"
                 onChange={handleImageChange}
                 fullWidth
+                required
+                value={image}
+            
               />
               {uploading && <Loader />}
             </Grid>

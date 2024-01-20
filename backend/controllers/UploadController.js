@@ -36,14 +36,14 @@ const router = express.Router();
 //         checkFileType(file,cb);
 //     }
 // })
-const storage = multer.memoryStorage(); // You can customize storage as needed
-const upload = multer({ storage: storage });
-router.post('/', upload.single('image'), (req, res) => {
-    console.log(req.body)
-    res.send(`/${req.file.path}`)
-})
+// const storage = multer.memoryStorage(); // You can customize storage as needed
+// const upload = multer({ storage: storage });
+// router.post('/', upload.single('image'), (req, res) => {
+//     console.log(req.body)
+//     // res.send(`/${req.file.path}`)
+// })
 
-module.exports = router;
+// module.exports = router;
 
 
 
