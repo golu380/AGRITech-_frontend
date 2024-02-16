@@ -100,7 +100,8 @@ const Authentication = {
             const access_token = JwtService.sign({
                 _id:user._id,
                 name:user.name,
-                email:user.email
+                email:user.email,
+                isAdmin:user.isAdmin
             })
             res.cookie('usercookie',access_token ,{
                 expires: new Date(Date.now() + 9000000),

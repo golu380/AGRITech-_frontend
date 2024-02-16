@@ -1,19 +1,31 @@
 const express = require('express');
 const path = require('path');
 const multer = require('multer')
+const MachineController = require('../controllers/productMachineController')
 
 
 const router = express.Router();
 const Authentication = require('../controllers/Authentication')
 const SupplierController = require('../controllers/supplierController')
+const {auth, admin} = require('../middleware/auth')
 
 
 router.post('/register',Authentication.register);
 router.post('/login',Authentication.login);
 
+router
+    .route('/lendMachines')
+    .get(MachineController.getLendMachines)
+    .post(auth, admin, MachineController.createLendMachine)
+
+router
+    .route('/lendMachines/:id')
+    .get(MachineController.getLendMachinesById)
+    .delete(auth, admin, MachineController.deleteLendMachine)
+    .put(auth, admin, MachineController.updateLendMachine)
 
 router.post('/api/supplier',SupplierController.createSupplierController)
-const NodeGeocoder = require('node-geocoder');
+
 
 
 
