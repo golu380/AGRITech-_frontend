@@ -12,6 +12,8 @@ const {auth, admin} = require('../middleware/auth')
 
 router.post('/register',Authentication.register);
 router.post('/login',Authentication.login);
+// router.get('/user/profile',auth,Authentication.getUserProfile)
+router.route('/user/profile').get(auth,Authentication.getUserProfile)
 
 router
     .route('/lendMachines')

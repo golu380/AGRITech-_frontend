@@ -106,41 +106,43 @@ export const register = (name,email,password,mobile) => async (dispatch)=>{
     }
 }
 
-// export const getUserDetails = (id) => async (dispatch, getState) => {
-//     try {
-//         dispatch({
-//             type: USER_DETAILS_REQUEST,
-//         })
+export const getUserDetails = () => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: USER_DETAILS_REQUEST,
+        })
 
-//         const { userLogin: { userInfo } } = getState()
+        const { userLogin: { userInfo } } = getState()
+        console.log(userInfo.data.access_token);
 
-//         const config = {
-//             headers: {
-//                 'Content-type': 'application/json',
-//                 Authorization: `Bearer ${userInfo.token}`
-//             },
-//         }
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.data.access_token}`
+            },
+        }
 
-//         const { data } = await axios.get(
-//             `/api/users/${id}`,
-//             config
-//         )
+        const { data } = await axios.get(
+            `http://localhost:8080/user/profile`,
+            config
+        )
+        console.log(data)
 
-//         dispatch({
-//             type: USER_DETAILS_SUCCESS,
-//             payload: data
-//         })
+        dispatch({
+            type: USER_DETAILS_SUCCESS,
+            payload: data
+        })
 
-//     } catch (error) {
-//         dispatch({
-//             type: USER_DETAILS_FAIL,
-//             payload:
-//                 error.response && error.response.data.message
-//                     ? error.response.data.message
-//                     : error.message
-//         })
-//     }
-// }
+    } catch (error) {
+        dispatch({
+            type: USER_DETAILS_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+        })
+    }
+}
 export const logout = () => (dispatch) => {
     localStorage.removeItem('userInfo')
     dispatch({ type: USER_LOGOUT })

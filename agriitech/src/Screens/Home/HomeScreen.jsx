@@ -7,7 +7,7 @@ const HomeScreen = ()=>{
     return (
 
         <>
-        <Meta />
+       <Meta />
         {/* <SliderComponent />  */}
         {/* <SliderComponent1 /> */}
         </>

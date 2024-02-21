@@ -4,6 +4,7 @@ import {Link as RouterLink, useHistory,useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import {login} from '../../actions/userActions'
 import Loader from '../Loader/Loader';
+import backgroundimg from "../../assets/authback.jpg";
 
 const loginStyles = {
   container: {
@@ -12,7 +13,7 @@ const loginStyles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: `url("https://images.unsplash.com/photo-1574943320219-553eb213f72d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=682&q=80")`
+    background: `url(${backgroundimg})`
   },
   formContainer: {
     maxWidth: 500,

@@ -114,10 +114,43 @@ const Authentication = {
         }
     },
     async getUserProfile(req,res,next){
-       
+       console.log(req);
+       try{
+        const user = await User.findById(req.user._id);
+        
+        if(user){
+            res.json({
+                _id:user._id,
+                name:user.name,
+                email:user.email,
+                cropSelection:user.cropSelection,
+                isAdmin:user.isAdmin,
+            })
+        }else{
+            return next(CustomerErrorHandler.notExists('User does not found'));
+
+        }
+       }catch(err){
+        return next(err);
+       }
 
 
+    },
+    // @desc update user profile
+    // @rout users/profile
+    // @acess private
+
+    async updateUserProfile(req, res,next){
+            try{
+                const user = await User.findById(req.user._id);
+                if(user){
+                    
+                }
+
+            }
     }
+
+
 
     
 }

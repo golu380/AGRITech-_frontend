@@ -20,6 +20,7 @@ import SupplierScreen from './Screens/Supplier/SupplierScreen';
 
 import HomeScreen from './Screens/Home/HomeScreen';
 import Layout1 from './Layout1';
+import ProfileScreen from './Screens/ProfileScreen/ProfileScreen';
 const Layout = ()=>{
     return (
         
@@ -36,6 +37,7 @@ const Layout = ()=>{
          <Route exact path='/register' element={<Register  />} />
          <Route exact path='/farmer' element={<FarmerScreen />} />
          <Route exact path ='/supplier' element={<SupplierScreen />} />
+         <Route exact path='/profile' element={<ProfileScreen/>} />
          {/* <Route exact path='/login' element={<LoginComponent />} /> */}
 
      </Routes>

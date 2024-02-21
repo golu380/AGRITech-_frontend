@@ -1,0 +1,14 @@
+.background-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Adjust the height as needed */
+    background-image: url('../../assets/green-field-with-sun.jpg');
+    background-size: cover;
+  }
+  
+  .content {
+    /* Styles for your content container */
+    text-align: center;
+    color: white;
+  }
