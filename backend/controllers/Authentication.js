@@ -123,7 +123,7 @@ const Authentication = {
                 _id:user._id,
                 name:user.name,
                 email:user.email,
-                cropSelection:user.cropSelection,
+                // cropSelection:user.cropSelection,
                 isAdmin:user.isAdmin,
             })
         }else{
@@ -141,14 +141,127 @@ const Authentication = {
     // @acess private
 
     async updateUserProfile(req, res,next){
+        // console.log(req.body)
+        // console.log(req.user);
+       
             try{
                 const user = await User.findById(req.user._id);
+                console.log(user);
                 if(user){
+                    user.name = req.body.name || user.name
+                    user.email = req.body.email || user.email
+                //    console.log(req.body.password)
+                    if(req.body.password){
+                       const  hashedpass = await bcrypt.hash(req.body.password,Number(SALT))
+                       console.log(hashedpass)
+                       user.password = hashedpass;
+                    }
+                   
+                    
                     
                 }
+                let access_token;
+                try{
+                    const updatedUser = await user.save();
+                    access_token = JwtService.sign({
+                        updatedUser
+                    })
+                }catch(err){
+                    return next(err)
+                }
 
+                res.json({access_token, message:'profile updated succefully'});
+               
+
+            }catch(err){
+                return next(err);
             }
+    },
+
+    //@desc get all usrs
+    //@rout Get /
+    //@access Private /admin
+    async getUsers(req,res,next){
+        try{
+            const users = await User.find({});
+            if(!users){
+                res.status(404).json({message: 'no any user found'})
+            }
+            res.json(users);
+        }catch(err){
+           return next(err);
+        }
+    },
+
+//@desc Get all users
+//@rout Get /api/users/
+//@acess Private/admin
+
+    async deleteUser(req,res,next){
+        console.log(req.params.id)
+        try{
+            const user = await User.findById(req.params.id);
+            if(!user){
+                
+                res.status(404).json({message: 'User is not found'});
+               
+            }
+            await user.remove();
+            res.status(204).json({message: 'user removed successfully ' });
+           
+           
+        }catch(err){
+            return next(err);
+        }
+    },
+    //@desc Get user by id
+    //@route get /api/users/:id
+    //@acess private/admin
+
+    async getUserById(req,res,next){
+        try{
+            const user = await User.findById(req.params.id).select('-password')
+            if(user){
+                res.json(user);
+            }else{
+                res.status(401).json({message:'User not found'})
+            }
+        }catch(err){
+            return next(err);
+        }
+    },
+
+    //@ desc update user
+    //@rout Put /api/users
+    //@access private/admin
+
+    async updateUser(req,res,next){
+        try{
+            const user = await User.findById(req.params.id);
+            if(user){
+                user.name = req.body.name || user.name
+                user.email = req.body.email || user.email
+                // user.cropSelection = req.body.cropSelection || user.cropSelection
+                user.isAdmin = req.body.isAdmin
+
+                updatedUser = await user.save();
+
+                res.status(201).json({
+             _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin,
+            // cropSelection: updatedUser.cropSelection,
+                })
+        
+            }else{
+                return next(CustomerErrorHandler.notExists);
+            }
+        }catch(err){
+            return next(err);
+        }
     }
+    
 
 
 

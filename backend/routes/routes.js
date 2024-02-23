@@ -12,8 +12,17 @@ const {auth, admin} = require('../middleware/auth')
 
 router.post('/register',Authentication.register);
 router.post('/login',Authentication.login);
+router.get('/',admin,auth,Authentication.getUsers)
 // router.get('/user/profile',auth,Authentication.getUserProfile)
-router.route('/user/profile').get(auth,Authentication.getUserProfile)
+router.route('/user/profile')
+       .get(auth,Authentication.getUserProfile)
+       .put(auth,Authentication.updateUserProfile)
+
+router.route('/user/:id')
+      .delete(auth,admin,Authentication.deleteUser)
+      .get(auth,admin,Authentication.getUserById)
+      .put(auth,admin, Authentication.updateUser)
+
 
 router
     .route('/lendMachines')
