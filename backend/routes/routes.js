@@ -23,6 +23,7 @@ router.route('/user/:id')
       .get(auth,admin,Authentication.getUserById)
       .put(auth,admin, Authentication.updateUser)
 
+// router.get('/user/:id',admin,auth,Authentication.getUserById)
 
 router
     .route('/lendMachines')
@@ -35,10 +36,32 @@ router
     .delete(auth, admin, MachineController.deleteLendMachine)
     .put(auth, admin, MachineController.updateLendMachine)
 
-router.post('/api/supplier',SupplierController.createSupplierController)
+// router.post('/api/supplier/',auth,SupplierController.createSupplierController)
+
+router.route('/api/supplier')
+      .post(auth, SupplierController.createSupplierController)
+      .get(auth, admin, SupplierController.getProducts)
 
 
+router.route('/api/supplier/all')
+      .get(SupplierController.getAllProductsForPublic)
+// router.get('api/supplier/all')
 
+router.route('/api/supplier/myproducts')
+      .get(auth,SupplierController.getMyProducts)
+
+router.route('/api/supplier/product/:id')
+      .get(auth,SupplierController.getFarmerProductById)
+
+// router
+//       .route('api/supplier/product/:id/edit')
+//       .put(auth, updateSupplierProductProfile)
+  
+router
+      .route('/api/supplier/product/:id/reviews')
+      .post(auth, admin, SupplierController.createFarmerProductReview)
+      .put(auth, admin, SupplierController.updateProductReview)
+  
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {

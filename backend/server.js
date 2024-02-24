@@ -1,6 +1,7 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
+const multer = require('multer');
 // import { DB_URI, PORT } from './config/config';
 const routes = require('./routes/routes.js')
 // const uploadRoutes = require('./controllers/UploadController.js')

@@ -200,15 +200,18 @@ const Authentication = {
     async deleteUser(req,res,next){
         console.log(req.params.id)
         try{
-            const user = await User.findById(req.params.id);
+            const user = await User.findByIdAndDelete(req.params.id);
+            console.log(user);
             if(!user){
+                res.status(401).json({message: 'User is not found'});
                 
-                res.status(404).json({message: 'User is not found'});
                
+               
+            }else{
+                res.status(200).json({message: 'user removed successfully '});
             }
-            await user.remove();
-            res.status(204).json({message: 'user removed successfully ' });
            
+        
            
         }catch(err){
             return next(err);
@@ -219,6 +222,7 @@ const Authentication = {
     //@acess private/admin
 
     async getUserById(req,res,next){
+        console.log(req.params.id);
         try{
             const user = await User.findById(req.params.id).select('-password')
             if(user){
